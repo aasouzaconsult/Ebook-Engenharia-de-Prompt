@@ -17,7 +17,7 @@
             justify-content: center;
             align-items: center;
             height: 100vh;
-            background-color: #f4f4f4;
+            background: linear-gradient(to right, #1d3557, #457b9d);
         }
 
         .container {
@@ -25,13 +25,44 @@
             background: white;
             padding: 40px;
             border-radius: 10px;
-            box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.1);
+            box-shadow: 0px 4px 15px rgba(0, 0, 0, 0.2);
+            max-width: 400px;
+            animation: fadeIn 1s ease-in-out;
+        }
+
+        @keyframes fadeIn {
+            from { opacity: 0; transform: scale(0.9); }
+            to { opacity: 1; transform: scale(1); }
         }
 
         img {
             width: 250px;
             height: auto;
             margin-bottom: 20px;
+            border-radius: 10px;
+        }
+
+        p {
+            font-size: 16px;
+            margin-bottom: 15px;
+            color: #333;
+        }
+
+        a.instagram {
+            display: inline-block;
+            background-color: #e4405f;
+            color: white;
+            text-decoration: none;
+            padding: 12px;
+            border-radius: 8px;
+            font-size: 16px;
+            font-weight: bold;
+            margin-bottom: 20px;
+            transition: 0.3s;
+        }
+
+        a.instagram:hover {
+            background-color: #d63050;
         }
 
         input {
@@ -53,7 +84,7 @@
             font-size: 18px;
             cursor: pointer;
             width: 100%;
-            transition: background-color 0.3s;
+            transition: 0.3s;
         }
 
         .button:hover {
@@ -64,6 +95,8 @@
 <body>
     <div class="container">
         <img src="ebook-capa.jpg" alt="Capa do E-book">
+        <p>Antes de baixar, siga-me no Instagram para mais conteúdos!</p>
+        <a href="https://www.instagram.com/alexsouzamsc" target="_blank" class="instagram">Seguir no Instagram</a>
         <form id="ebookForm">
             <input type="email" id="email" name="email" placeholder="Digite seu e-mail" required>
             <button type="submit" class="button">Baixe aqui seu E-book!</button>
@@ -73,15 +106,12 @@
     <script>
         document.getElementById("ebookForm").addEventListener("submit", function(event) {
             event.preventDefault();
-
             let email = document.getElementById("email").value;
-            
             if (email.trim() === "") {
                 alert("Por favor, insira um e-mail válido.");
                 return;
             }
 
-            // Enviar e-mail via FormSubmit com assunto personalizado
             fetch("https://formsubmit.co/ajax/aasouzaconsult@gmail.com", {
                 method: "POST",
                 headers: { "Content-Type": "application/json" },
@@ -93,12 +123,10 @@
             })
             .then(response => response.json())
             .then(data => {
-                // Disponibilizar o download do e-book
                 window.location.href = "ebook.pdf";
             })
             .catch(error => console.error("Erro ao enviar e-mail:", error));
         });
     </script>
-
 </body>
 </html>
